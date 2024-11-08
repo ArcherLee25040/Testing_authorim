@@ -10,7 +10,7 @@ type SpacialStack struct {
 // 入栈--压入栈
 func (s *SpacialStack) Push(value int) {
 	s.dataStack = append(s.dataStack, value)
-	if len(s.minStack) == 0 || value <= s.minStack[len(s.dataStack)-1] {
+	if len(s.minStack) == 0 || value <= s.minStack[len(s.minStack)-1] {
 		s.minStack = append(s.minStack, value)
 	}
 }
@@ -22,16 +22,14 @@ func (s *SpacialStack) Pop() int {
 	poppedValue := s.dataStack[len(s.dataStack)-1]
 	s.dataStack = s.dataStack[:len(s.dataStack)-1]
 	if poppedValue == s.minStack[len(s.minStack)-1] {
-		s.minStack = s.minStack[:len(s.minStack)]
+		s.minStack = s.minStack[:len(s.minStack)-1]
 	}
 	return poppedValue
-
 }
 
 func (s *SpacialStack) GetMin() int {
 	if len(s.minStack) == 0 {
 		return -1
-
 	}
 	return s.minStack[len(s.minStack)-1]
 }
